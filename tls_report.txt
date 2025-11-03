@@ -1,0 +1,35 @@
+TLS Handshake Explanation:
+The TLS handshake is the process by which a client and server establish a secure encrypted
+connection before any actual data exchange. When a user connects to an HTTPS website, the client
+(usually a browser) sends a “Client Hello” message specifying the supported TLS versions, cipher suites,
+and extensions. The server responds with a “Server Hello” message, selecting the TLS version and cipher suite to be used.
+The server then sends its digital certificate, which contains the public key and is signed by a trusted Certificate Authority (CA).
+The client verifies the certificate’s authenticity and validity. Once verified, both sides generate a session key using asymmetric
+encryption and then switch to symmetric encryption for efficiency. This ensures all subsequent communication remains private and tamper-proof.
+
+MITM (Man-in-the-Middle) Protection Mechanisms
+TLS protects against Man-in-the-Middle (MITM) attacks through authentication, encryption, and integrity mechanisms. The server’s certificate,
+signed by a trusted CA, ensures that the client is communicating with the genuine server and not an impersonator. If an attacker tries to
+intercept or alter the connection, the certificate verification will fail unless the attacker can produce a valid certificate issued by
+a trusted CA. During the handshake, public key cryptography ensures that the encryption keys are securely exchanged without exposure.
+Additionally, message authentication codes (MACs) and digital signatures prevent any undetected tampering with the transmitted data.
+Together, these mechanisms ensure that even if traffic is intercepted, it cannot be decrypted or modified without detection.
+
+
+TLS Application in Websites
+TLS is the backbone of HTTPS, securing almost all modern web traffic. When a website uses HTTPS, TLS provides confidentiality
+(by encrypting data so only the intended recipient can read it), integrity (by preventing tampering with the transmitted data),
+and authentication (by verifying the server’s identity via its certificate). For example, when you visit https://example.com,
+your browser automatically initiates a TLS handshake, verifies the server’s certificate, and then establishes a secure, encrypted session.
+This prevents attackers from reading sensitive information like login credentials, credit card details, or personal data as it travels
+across the network. The use of TLS ensures that users can safely interact with websites, perform online transactions, and exchange information
+without the risk of eavesdropping or data alteration.
+
+
+
+
+
+
+
+
+

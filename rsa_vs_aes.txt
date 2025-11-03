@@ -1,0 +1,30 @@
+Based on hands-on experience with OpenSSL encryption tasks, here are the key differences between RSA and AES cryptography:
+
+RSA (Asymmetric Cryptography):
+KEY SIZE: Large keys (2048-4096 bits) for equivalent security
+DATA LIMITS: Strict size limitations (max ~245 bytes for 2048-bit RSA)
+CPU USAGE: High - uses complex modular exponentiation
+SCALABILITY: Poor for large files - encountered "data too large" errors
+
+AES (Symmetric Cryptography):
+KEY SIZE: Compact keys (128, 192, or 256 bits)
+DATA LIMITS: No practical limits - handles files of any size
+CPU USAGE: Low - uses efficient substitution-permutation networks
+SCALABILITY: Excellent for large-scale data encryption
+
+
+USE-CASE DIFFERENCES:
+
+RSA Ideal For:
+Key exchange and distribution
+Digital signatures and certificates
+SSL/TLS handshake establishment
+Encrypting small sensitive data (passwords, keys)
+Secure initial connection setup
+
+AES Ideal For:
+Bulk data encryption (files, documents, databases)
+Disk and file system encryption
+Real-time communication encryption
+SSL/TLS data transmission after handshake
+Streaming media encryption

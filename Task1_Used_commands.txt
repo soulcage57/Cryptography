@@ -1,0 +1,10 @@
+openssl genrsa -out private.pem 2048
+openssl rsa -in private.pem -pubout -out public.pem
+
+openssl pkeyutl -encrypt -inkey public.pem -pubin -in message.txt -out message_rsa_encrypted.bin
+openssl pkeyutl -decrypt -inkey private.pem -in message_rsa_encrypted.bin -out message_rsa_decrypted.txt
+
+openssl rand -base64 32 > aes_key.bin
+openssl rand -base64 16 > aes_iv.bin
+openssl enc -aes-256-cbc -in message.txt -out message_aes_encrypted.bin -pass file:aes_key.bin -pbkdf2
+openssl enc -d -aes-256-cbc -in message_aes_encrypted.bin -out message_aes_decrypted.txt -pass file:aes_key.bin -pbkdf2
