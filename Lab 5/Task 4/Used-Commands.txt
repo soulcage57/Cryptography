@@ -1,0 +1,12 @@
+openssl dhparam -out dhparam.pem 2048
+
+openssl genpkey -paramfile dhparam.pem -out alice_priv.pem
+openssl pkey -in alice_priv.pem -pubout -out alice_pub.pem
+type alice_pub.pem
+
+openssl genpkey -paramfile dhparam.pem -out bob_priv.pem
+openssl pkey -in bob_priv.pem -pubout -out bob_pub.pem
+type bob_pub.pem
+
+openssl pkeyutl -derive -inkey alice_priv.pem -peerkey bob_pub.pem -out alice_shared.bin
+openssl pkeyutl -derive -inkey bob_priv.pem -peerkey alice_pub.pem -out bob_shared.bin

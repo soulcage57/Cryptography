@@ -1,0 +1,4 @@
+echo This file contains top secret information. > secret.txt
+type secret.txt
+openssl enc -aes-128-cbc -salt -in secret.txt -out secret.enc
+type secret.enc

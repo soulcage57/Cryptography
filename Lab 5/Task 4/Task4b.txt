@@ -1,0 +1,9 @@
+Diffie-Hellman key exchange is commonly used in many systems that need to create a secure communication channel. One example is the TLS handshake
+which happens when you connect to a secure website. It helps the browser and the server agree on a shared secret key so that the data they send
+back and forth stays private.
+Modern versions like ECDHE make this process faster and more secure. Another good example is secure messaging apps like Signal and WhatsApp which
+use similar key exchanges to keep conversations encrypted and private.
+
+This method is important because it allows two sides to agree on a secret key without ever sending that key directly. Even if someone is watching
+ the network they can’t figure out the shared secret. This helps protect sensitive data and ensures that private messages and connections stay
+ safe from attackers.

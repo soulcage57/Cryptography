@@ -1,0 +1,9 @@
+What happens:
+Changing even one character in the file completely changes the resulting HMAC.
+Verification using the old HMAC would fail, proving the message was modified.
+
+Why it matters:
+HMAC combines hashing with a secret key to ensure both:
+Integrity: Detects any data tampering.
+Authenticity: Confirms the message came from someone who knows the shared key.
+This protects against accidental corruption and malicious changes.
