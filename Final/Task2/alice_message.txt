@@ -1,0 +1,1 @@
+This is Alice's confidential file content that needs secure transmission to Bob!
