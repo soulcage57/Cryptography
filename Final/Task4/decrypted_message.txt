@@ -1,0 +1,9 @@
+This is a confidential internal company message from Alice to Bob. 
+ 
+---SIGNATURE--- 
+BpCpjnkjKkVUya9ECVS3Q4bDEpZ4GVPyH4Mi+0s2jbdo1UENpoYSeRun/K8Ej74a
+GVJRx47wKFBhEgzqkH7nwszB3kmgxdOuQkcmT6EAUS3dKZHDTREHEnBHzZyq51cb
+cHtFIxg54w6mOc3aFENcBaSIAaK/PXy2wWZ9ayEzK3pnwtErxK16isOM8MrQyWWn
+k5MGC3q1CYHR9iy9adgEud1vOoSG6lXBtLS0WBZfaSNLCZJ3yNHFBwNntFqlDAp6
+lqyX/Csq+QcPBx78whIGMeqsXC9xYb7Oxf6M4o1H9JwuBaBPpGJbVCKVvta7w3fo
+ajy6pRi8RpGlSQS6uIJvyQ==

@@ -1,0 +1,123 @@
+TLS Communication Inspection & Analysis
+
+1. OPENSSL S_CLIENT ANALYSIS
+
+Website Analyzed: google.com
+A. Certificate Chain:
+    Leaf Certificate (Depth 0):
+      Subject: CN=*.google.com
+      Issuer: C=US, O=Google Trust Services, CN=GTS CA 1C3
+      Valid From: Oct 27 08:33:51 2025 GMT
+      Valid Until: Jan 19 08:33:50 2026 GMT
+
+    Intermediate Certificate (Depth 1):
+      Subject: C=US, O=Google Trust Services, CN=GTS CA 1C3
+      Issuer: C=US, O=Google Trust Services LLC, CN=GTS Root R4
+
+    Root Certificate (Depth 2):
+      Subject: C=US, O=Google Trust Services LLC, CN=GTS Root R4
+
+B. Cipher Suite:
+    TLS_AES_256_GCM_SHA384
+    Key Exchange: X25519 (Elliptic Curve)
+    Encryption: AES-256-GCM
+    Hash Algorithm: SHA384
+    Post-Quantum Security: WLKEM768
+
+C. TLS Version:
+    TLS 1.3
+    Security Feature: TLS 1.3 forbids renegotiation
+
+2. WIRESHARK CAPTURE ANALYSIS
+
+
+A. TLS 1.3 Handshake Sequence Observed:
+
+Packet 421: Client Hello (1595 bytes)
+ Server Name Indication (SNI): google.com
+ TLS Version: 1.3
+ Cipher Suites: Including TLS_AES_256_GCM_SHA384
+ Key Share: X25519 parameters
+ Supported Groups: Including WLKEM768
+
+Packet 426: Server Hello + Change Cipher Spec (1466 bytes)
+ Selected Cipher: TLS_AES_256_GCM_SHA384
+ Key Share parameters
+ Change Cipher Spec: Switch to encrypted communication
+
+Packet 431: Application Data (844 bytes) - ENCRYPTED
+ Contains: Encrypted Extensions, Certificate, Certificate Verify, Finished
+ All subsequent handshake messages are encrypted in TLS 1.3
+
+Packet 433: Change Cipher Spec + Application Data (134 bytes)
+ Client acknowledges encryption switch
+ Encrypted Finished message
+
+B. Additional Session Observed:
+ Second TLS handshake (Packets 2207-2219) shows session resumption
+ Similar pattern but likely with session tickets for faster establishment
+
+3. TLS 1.3 HANDSHAKE SIMPLIFICATION
+
+Key Differences from TLS 1.2 Observed:
+1. Fewer Round Trips: 1-RTT handshake vs 2-RTT in TLS 1.2
+2. Encrypted Handshake: Most handshake data encrypted after Server Hello
+3. No Visible Certificate Chain: Certificate exchange happens encrypted
+4. Integrated Key Exchange: Key share in initial Client/Server Hello
+
+4. HOW TLS PROVIDES CONFIDENTIALITY AND INTEGRITY
+
+
+A. Confidentiality (Demonstrated in Capture):
+
+1. Key Exchange: X25519 Elliptic Curve Diffie-Hellman
+    Perfect Forward Secrecy: Ephemeral keys for each session
+    Observed in Client Hello Key Share extension
+
+2. Symmetric Encryption: AES-256-GCM
+    256-bit military-grade encryption
+    All application data encrypted after Packet 426
+    Confirmed by "Application Data" packets showing encrypted content
+
+3. Early Encryption: 
+    Handshake messages after Server Hello are encrypted
+    Prevents eavesdropping on certificate chain
+
+B. Integrity (Security Features):
+
+1. Hash Algorithm: SHA-384
+    Used in HMAC for message authentication
+    Strong cryptographic hashing
+
+2. Authenticated Encryption: AES-GCM Mode
+    Provides both confidentiality and integrity
+    Built-in authentication tags
+
+3. Digital Signatures:
+    Certificate Verify message (encrypted in TLS 1.3)
+    Server authentication
+
+4. Finished Messages:
+    Verify handshake integrity
+    Based on hash of all handshake messages
+
+5. SECURITY FEATURES OBSERVED
+
+
+ TLS 1.3: Latest protocol with improved security
+ Perfect Forward Secrecy: X25519 key exchange
+ Strong Cipher: AES-256-GCM with SHA384
+ Post-Quantum Ready: WLKEM768 support
+ Encrypted Handshake: Certificate exchange hidden
+ No Renegotiation: Prevents downgrade attacks
+ Session Resumption: Efficient subsequent connections
+
+6. VERIFICATION SUMMARY
+
+ Confidentiality Verified: All application data encrypted
+ Integrity Protected: AEAD cipher suite used
+ Authentication: Certificate chain validated
+ Modern Protocols: TLS 1.3 with strong algorithms
+ Forward Secrecy: Ephemeral key exchange demonstrated
+
+The capture clearly shows TLS 1.3's security improvements, particularly the encrypted handshake that protects sensitive information like certificate chains from eavesdropping
